@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HL2 MODDERS TEAM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --portal-blue: #00aeff;
+            --portal-orange: #ff7b00;
+            --aperture-gray: #2d2d2d;
+        }
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        
+        .portal-border {
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .portal-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--portal-blue), var(--portal-orange));
+            border-radius: inherit;
+            animation: portal-glow 3s linear infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes portal-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid var(--portal-orange);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--portal-orange); }
+        }
+        
+        .mod-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 174, 255, 0.3);
+        }
+        
+        .portal-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .portal-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .portal-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s;
+        }
+        
+        .portal-btn:hover::after {
+            left: 100%;
+        }
+        
+        .aperture-logo {
+            filter: drop-shadow(0 0 5px rgba(0, 174, 255, 0.7));
+            animation: aperture-pulse 2s infinite;
+        }
+        
+        @keyframes aperture-pulse {
+            0% { filter: drop-shadow(0 0 5px rgba(0, 174, 255, 0.7)); }
+            50% { filter: drop-shadow(0 0 15px rgba(0, 174, 255, 0.9)); }
+            100% { filter: drop-shadow(0 0 5px rgba(0, 174, 255, 0.7)); }
+        }
+        
+        .test-chamber {
+            background: linear-gradient(rgba(45, 45, 45, 0.8), rgba(45, 45, 45, 0.8)), 
+                        url('assets/widescreen.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header with animated portal effect -->
+    <header class="portal-border bg-gray-900 py-6">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="aperture-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#00aeff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-orange-500">
+                    HL2 MODDERS TEAM
+                </h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-gray-300 hover:text-white transition">Home</a></li>
+                    <li><a href="#mods" class="text-gray-300 hover:text-white transition">Mods</a></li>
+                    <li><a href="#team" class="text-gray-300 hover:text-white transition">Team</a></li>
+                    <li><a href="#forum" class="text-gray-300 hover:text-white transition">Forum</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="test-chamber min-h-[70vh] flex items-center justify-center text-center py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 typewriter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-orange-500">
+                Welcome to Half-Life 2 Modding
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-300">
+                Where science meets creativity. Upload, share and play the best Half-Life 2 mods created by our community.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button class="portal-btn px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-700 rounded-md font-bold text-white">
+                    Join Team
+                </button>
+            </div>
+        </div>
+    </section>
+
+<!-- Mod Showcase Section -->
+<section id="mods" class="py-16 bg-gray-900">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-orange-500">
+            Featured Mods
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Mod Card 1 -->
+            <div class="mod-card portal-border bg-gray-800 rounded-lg overflow-hidden transition-all duration-300">
+                <div class="h-48 bg-cover bg-center" style="background-image: url('modphotos/oicw.jpg');">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white">New Weapons</h3>
+                        <span class="px-3 py-1 bg-purple-900 text-purple-300 text-sm rounded-full">New</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Introduces new weapons and ammunition types for Half-Life 2.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="ml-2 text-gray-300">N/A</span>
+                        </div>
+                        <button class="portal-btn px-4 py-2 bg-purple-600 rounded-md text-white text-sm">
+                            Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mod Card 2 -->
+            <div class="mod-card portal-border bg-gray-800 rounded-lg overflow-hidden transition-all duration-300">
+                <div class="h-48 bg-cover bg-center" style="background-image: url('modphotos/freemanjourney.jpg');">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white">Freeman Journey</h3>
+                        <span class="px-3 py-1 bg-green-900 text-green-300 text-sm rounded-full">Soon</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">A thrilling journey through the eyes of Gordon Freeman.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="ml-2 text-gray-300">N/A</span>
+                        </div>
+                        <button class="portal-btn px-4 py-2 bg-green-600 rounded-md text-white text-sm">
+                            Read More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <button class="portal-btn px-6 py-3 bg-gradient-to-r from-blue-500 to-orange-500 rounded-md font-bold text-white">
+                View All Mods
+            </button>
+        </div>
+    </div>
+</section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-orange-500">
+                Our Team
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+                <!-- Team Member 1 -->
+                <div class="portal-border bg-gray-800 rounded-lg overflow-hidden text-center p-6">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-cover bg-center" style="background-image: url('assets/pavelcheloveckov.jpg');">
+					</div>
+                    <h3 class="text-xl font-bold text-white mb-1">Pavel Cheloveckov</h3>
+                    <p class="text-blue-400 mb-3">Lead Developer</p>
+                    <p class="text-gray-400 mb-4">Theoretical physicist with a crowbar specialization.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-steam"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="portal-border bg-gray-800 rounded-lg overflow-hidden text-center p-6">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-cover bg-center" style="background-image:;">
+					</div>
+                    <h3 class="text-xl font-bold text-white mb-1">Max Rush</h3>
+                    <p class="text-orange-400 mb-3">Community Manager</p>
+                    <p class="text-gray-400 mb-4">Keeps the community in line with beer and security batons.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-steam"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <h3 class="text-2xl font-bold text-white mb-4">Want to join our team?</h3>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    We're always looking for talented modders, designers and testers to help create amazing content for the community.
+                </p>
+                <button class="portal-btn px-8 py-3 bg-gradient-to-r from-blue-500 to-orange-500 rounded-md font-bold text-white">
+                    Apply Now
+                </button>
+            </div>
+        </div>
+    </section>
+	
+    <!-- Footer -->
+    <footer class="portal-border bg-gray-900 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center">
+                        <div class="aperture-logo mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00aeff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </div>
+                        HL2 MODDERS TEAM
+                    </h3>
+                    <p class="text-gray-400">
+                        Creating innovative mods for Half-Life 2 since 2004.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#mods" class="text-gray-400 hover:text-white transition">Mods</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-white transition">Team</a></li>
+                        <li><a href="#forum" class="text-gray-400 hover:text-white transition">Forum</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Source SDK</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">API Reference</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Connect</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition text-xl"><i class="fab fa-steam"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition text-xl"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-orange-400 transition text-xl"><i class="fab fa-reddit"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition text-xl"><i class="fab fa-github"></i></a>
+                    </div>
+                    <p class="text-gray-400">
+                        Join our Discord community for real-time discussions and support.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>© 2023 HL2 MODDERS TEAM. All rights reserved. Half-Life 2 is a registered trademark of Valve Corporation.</p>
+                <p class="mt-2">This website is not affiliated with Valve Corporation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple form submission handler
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const modName = document.getElementById('modName').value;
+            const modDescription = document.getElementById('modDescription').value;
+            const modCategory = document.getElementById('modCategory').value;
+            const modGame = document.getElementById('modGame').value;
+            
+            // Simple validation
+            if (!modName || !modDescription || !modCategory || !modGame) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            // In a real app, you would upload files to a server here
+            alert(`Mod "${modName}" submitted successfully! (This is a demo - files not actually uploaded)`);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Animate elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.mod-card, .portal-border').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
